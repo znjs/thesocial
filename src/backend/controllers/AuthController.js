@@ -1,6 +1,7 @@
-import { v4 as uuid } from "uuid";
 import { Response } from "miragejs";
+import { v4 as uuid } from "uuid";
 import { formatDate } from "../utils/authUtils";
+
 const sign = require("jwt-encode");
 
 /**
@@ -25,7 +26,7 @@ export const signupHandler = function (schema, request) {
         {},
         {
           errors: ["Unprocessable Entity. Username Already Exists."],
-        }
+        },
       );
     }
     const _id = uuid();
@@ -42,10 +43,7 @@ export const signupHandler = function (schema, request) {
       bookmarks: [],
     };
     const createdUser = schema.users.create(newUser);
-    const encodedToken = sign(
-      { _id, username },
-      process.env.REACT_APP_JWT_SECRET
-    );
+    const encodedToken = sign({ _id, username }, process.env.REACT_APP_JWT_SECRET);
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
     return new Response(
@@ -53,7 +51,7 @@ export const signupHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
@@ -73,27 +71,20 @@ export const loginHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "The username you entered is not Registered. Not Found error",
-          ],
-        }
+          errors: ["The username you entered is not Registered. Not Found error"],
+        },
       );
     }
     if (password === foundUser.password) {
-      const encodedToken = sign(
-        { _id: foundUser._id, username },
-        process.env.REACT_APP_JWT_SECRET
-      );
+      const encodedToken = sign({ _id: foundUser._id, username }, process.env.REACT_APP_JWT_SECRET);
       return new Response(200, {}, { foundUser, encodedToken });
     }
     return new Response(
       401,
       {},
       {
-        errors: [
-          "The credentials you entered are invalid. Unauthorized access error.",
-        ],
-      }
+        errors: ["The credentials you entered are invalid. Unauthorized access error."],
+      },
     );
   } catch (error) {
     return new Response(
@@ -101,7 +92,7 @@ export const loginHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
