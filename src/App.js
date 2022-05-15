@@ -1,12 +1,13 @@
 import "./App.css";
 import { logo } from "./assets";
-import { SignIn, SignUp } from "./pages";
+import { Home, SignIn, SignUp } from "./pages";
 
 function App() {
   return (
     <div className=" ">
-      <SignIn />
+      {/* <SignIn /> */}
       {/* <SignUp /> */}
+      <Home />
     </div>
   );
 }
