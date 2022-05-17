@@ -147,7 +147,7 @@ function Home() {
         <div className="main-container flex-grow p-2">
           <Outlet />
         </div>
-        <div className="bg-green-600 w-1/5 p-2"></div>
+        <div className=" w-1/5 p-2"></div>
       </div>
     </div>
   );
