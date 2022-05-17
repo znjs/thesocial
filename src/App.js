@@ -1,41 +1,22 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import logo from "./logo.png";
+import { Bookmark, Explore, Feed, LikedPost, PostModal } from "./components";
+import { Home, SignIn, SignUp } from "./pages";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
-        </div>
-      </header>
+    <div className=" ">
+      <Routes>
+        <Route element={<Home />}>
+          <Route path="/" element={<Feed />} />
+          <Route path="/liked" element={<LikedPost />} />
+          <Route path="/bookmark" element={<Bookmark />} />
+          <Route path="/explore" element={<Explore />} />
+        </Route>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+      <PostModal />
     </div>
   );
 }
