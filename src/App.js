@@ -1,13 +1,22 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { logo } from "./assets";
+import { Bookmark, Explore, Feed, LikedPost, PostModal } from "./components";
 import { Home, SignIn, SignUp } from "./pages";
 
 function App() {
   return (
     <div className=" ">
-      {/* <SignIn /> */}
-      {/* <SignUp /> */}
-      <Home />
+      <Routes>
+        <Route element={<Home />}>
+          <Route path="/" element={<Feed />} />
+          <Route path="/liked" element={<LikedPost />} />
+          <Route path="/bookmark" element={<Bookmark />} />
+          <Route path="/explore" element={<Explore />} />
+        </Route>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+      <PostModal />
     </div>
   );
 }
