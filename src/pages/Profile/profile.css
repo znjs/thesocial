@@ -1,0 +1,4 @@
+.profile {
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
