@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Bookmark, Explore, Feed, LikedPost, PostModal } from "./components";
-import { Home, SignIn, SignUp } from "./pages";
+import { Home, Profile, SignIn, SignUp } from "./pages";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
         </Route>
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <PostModal />
     </div>

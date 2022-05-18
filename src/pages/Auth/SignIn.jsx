@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
 import "./auth.css";
 
 function SignIn() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({ email: "", password: "" });
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">
       <div className="flex justify-center items-center flex-grow min-w-fit">
@@ -21,6 +24,8 @@ function SignIn() {
                 Email:
               </label>
               <input
+                value={user.email}
+                onChange={(e) => setUser((prev) => ({ ...prev, email: e.target.value }))}
                 type="email"
                 name="email"
                 placeholder="john.doe@gmail.com"
@@ -33,6 +38,8 @@ function SignIn() {
                 Password:
               </label>
               <input
+                value={user.password}
+                onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
                 type="password"
                 name="password"
                 placeholder="password . . ."
@@ -40,11 +47,18 @@ function SignIn() {
               />
             </div>
             <button
+              onClick={() => {
+                if (!!user.email && !!user.password) navigate("/");
+              }}
               type="button"
-              className="text-center w-full py-4 bg-sky-500 hover:bg-sky-400 rounded-md cursor-not-allowed cursor-pointer">
+              className={`text-center w-full py-4 bg-sky-500 hover:bg-sky-400 rounded-md ${
+                !!user.email && !!user.password ? "cursor-pointer" : "cursor-not-allowed"
+              }`}>
               SIGN IN
             </button>
-            <p className="text-sm font-sans font-medium text-gray-400 underline select-none cursor-pointer">
+            <p
+              onClick={() => navigate("/signup")}
+              className="text-sm font-sans font-medium text-gray-400 underline select-none cursor-pointer">
               Don't have an account? Sign up
             </p>
           </div>
