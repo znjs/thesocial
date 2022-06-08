@@ -1,9 +1,13 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
+import { logout } from "../../features";
 
 function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.userData);
   return (
     <>
       <nav className="navbar bg-base-100 px-4 py-2">
@@ -15,7 +19,8 @@ function Navbar() {
             The Social
           </p>
         </div>
-        <div className="dropdown dropdown-end">
+        {/* COMMENTED FOR FUTURE PURPOSES */}
+        {/* <div className="dropdown dropdown-end">
           <label tabIndex="0" className="btn m-1 border-0">
             <div className="indicator text-2xl">
               <span className="indicator-item badge rounded-full ">4</span>
@@ -34,7 +39,7 @@ function Navbar() {
               <p>Notification 2</p>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="dropdown dropdown-end  ">
           <label tabIndex="0" className="btn m-1 bg-[#424F55] outline-none border-0">
             <svg
@@ -55,7 +60,11 @@ function Navbar() {
             <li onClick={() => navigate("/profile")} className="bg-[#424F55] hover:bg-[#2c3133]">
               <p>Profile</p>
             </li>
-            <li onClick={() => navigate("/login")} className="bg-red-500 hover:bg-red-600">
+            <li
+              onClick={() => {
+                dispatch(logout({ navigate }));
+              }}
+              className="bg-red-500 hover:bg-red-600">
               <p>Logout</p>
             </li>
           </ul>

@@ -1,11 +1,22 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Bookmark, Explore, Feed, LikedPost, PostModal } from "./components";
-import { Home, Profile, SignIn, SignUp } from "./pages";
+import { PostEditModal, PostModal } from "./components";
+import {
+  Bookmark,
+  Explore,
+  Feed,
+  Home,
+  LikedPost,
+  PageNotFound,
+  Profile,
+  SignIn,
+  SignUp,
+  SingleUserProfile,
+} from "./features";
 
 function App() {
   return (
-    <div className=" ">
+    <div>
       <Routes>
         <Route element={<Home />}>
           <Route path="/" element={<Feed />} />
@@ -16,8 +27,11 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/user/:userId" element={<SingleUserProfile />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <PostModal />
+      <PostEditModal />
     </div>
   );
 }

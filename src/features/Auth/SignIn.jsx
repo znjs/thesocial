@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
 import "./auth.css";
+import { signIn } from "./authSlice";
 
 function SignIn() {
   const navigate = useNavigate();
   const [user, setUser] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  const encodedToken =
+    useSelector((state) => state.auth.encodedToken) || localStorage.getItem("encodedToken");
+
+  useEffect(() => {
+    if (!!encodedToken) navigate("/");
+  }, [encodedToken]);
+
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">
       <div className="flex justify-center items-center flex-grow min-w-fit">
@@ -48,7 +58,9 @@ function SignIn() {
             </div>
             <button
               onClick={() => {
-                if (!!user.email && !!user.password) navigate("/");
+                if (!!user.email && !!user.password) {
+                  dispatch(signIn({ username: user.email, password: user.password, navigate }));
+                }
               }}
               type="button"
               className={`text-center w-full py-4 bg-sky-500 hover:bg-sky-400 rounded-md ${
