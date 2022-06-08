@@ -1,16 +1,31 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { followUser } from "../../features";
 
-function UserTile() {
+function UserTile({ user }) {
+  const dispatch = useDispatch();
+  const encodedToken = useSelector((state) => state.auth.encodedToken);
+  const navigate = useNavigate();
   return (
     <>
-      <div className="flex items-center justify-between max-w-[260px] my-3">
+      <div
+        className="flex items-center justify-between max-w-[260px] my-3 cursor-pointer rounded-lg hover:bg-[#454d50] py-2 px-2"
+        onClick={(e) => {
+          navigate(`/user/${user._id}`);
+        }}>
         <img
-          src="https://images.unsplash.com/photo-1554126807-6b10f6f6692a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          src={user.profileImage}
           alt="Profile pic"
           className="rounded-full h-10 w-10 mx-4 object-cover"
         />
-        <p>@Akash_p</p>
-        <button className="background-clr py-2 px-3 rounded-full">
+        <p>{user.username.split("@")[0]}</p>
+        <button
+          className="background-clr hover:bg-[#11161b] py-2 px-3 rounded-full"
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(followUser({ encodedToken, userId: user._id }));
+          }}>
           <i className="fa-solid fa-plus"></i> Follow
         </button>
       </div>
