@@ -95,6 +95,9 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/users/remove-bookmark/:postId/", removePostFromBookmarkHandler.bind(this));
       this.post("/users/follow/:followUserId/", followUserHandler.bind(this));
       this.post("/users/unfollow/:followUserId/", unfollowUserHandler.bind(this));
+
+      this.passthrough();
+      this.passthrough("https://api.cloudinary.com/v1_1/znjs/image/upload", ["post"]);
     },
   });
 }
