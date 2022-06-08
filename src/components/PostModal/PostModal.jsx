@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewPost } from "../../features/Home/postSlice";
 
 function PostModal() {
+  const user = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
+  const encodedToken = useSelector((state) => state.auth.encodedToken);
+  const [postData, setPostData] = useState({ content: "", profileImage: user.profileImage });
+  useEffect(() => {
+    setPostData((prev) => ({ ...prev, profileImage: user.profileImage }));
+  }, [user]);
   return (
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">
         <label className="modal-box relative" htmlFor="">
-          <div className="bg-[#454d50] p-4 rounded-lg text-gray-50">
+          <div className="bg-[#454d50] pt-12 p-4 rounded-lg text-gray-50 relative">
             <div className="flex mb-3">
               <img
-                src="https://images.unsplash.com/photo-1485178575877-1a13bf489dfe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1101&q=80"
+                src={user?.profileImage}
                 alt="Profile pic"
                 className="rounded-full h-12 w-12 mx-4 object-cover"
               />
@@ -19,6 +28,8 @@ function PostModal() {
                 name="message"
                 placeholder="What's on your mind?"
                 className="bg-transparent flex-grow placeholder:text-gray-200 p-2 rounded-lg outline-0 border border-slate-300"
+                value={postData?.content}
+                onChange={(e) => setPostData((prev) => ({ ...prev, content: e.target.value }))}
               />
             </div>
             <div className="flex justify-between">
@@ -36,9 +47,23 @@ function PostModal() {
           Image
         </button>
       </label> */}
-              <button className="px-4 py-2 rounded-full  bg-[#11161b] btn border-0 hover:bg-[#11161b70]">
+              <label
+                htmlFor="my-modal-4"
+                className="rounded-full  text-gray-50 btn border-0 hover:text-gray-300 absolute top-0 right-0"
+                onClick={() => setPostData((prev) => ({ ...prev, content: "" }))}>
+                <i className="fa-solid fa-xmark"></i>
+              </label>
+              <label
+                htmlFor="my-modal-4"
+                className="px-4 py-2 rounded-full ml-auto bg-[#11161b] btn border-0 hover:bg-[#11161b70]"
+                onClick={() => {
+                  if (postData?.content.trim().length > 0) {
+                    dispatch(createNewPost({ postData, encodedToken }));
+                    setPostData((prev) => ({ ...prev, content: "" }));
+                  }
+                }}>
                 Post
-              </button>
+              </label>
             </div>
           </div>
         </label>
