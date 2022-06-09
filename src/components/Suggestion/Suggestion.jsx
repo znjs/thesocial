@@ -13,9 +13,11 @@ function Suggestion() {
   suggestions = suggestions.filter((user) =>
     user?.followers?.every((user) => !(user.username === username)),
   );
+
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [fetchFlag]);
+  }, [fetchFlag, dispatch]);
+
   return (
     <div className=" p-2 suggestions ">
       {!!suggestions.length ? (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Navbar, Suggestion } from "../../components";
@@ -25,7 +25,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchUserPosts(user.username));
-  }, [fetchFlag, dispatch, loadingAuth]);
+  }, [fetchFlag, dispatch, loadingAuth, user.username]);
 
   return (
     <div className="bg-[#11161b] text-gray-50 h-screen w-screen flex flex-col">
