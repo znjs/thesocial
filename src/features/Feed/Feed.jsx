@@ -27,6 +27,7 @@ function Feed() {
         (postOne, postTwo) => postTwo.likes.likeCount - postOne.likes.likeCount,
       );
     }
+    console.log(finalPosts);
     return finalPosts
       ?.filter((post) => [...followingUsers, user?.username]?.includes(post?.username))
       .map((post) => <Post key={post._id} post={post} />);
