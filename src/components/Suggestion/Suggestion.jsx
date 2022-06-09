@@ -17,7 +17,7 @@ function Suggestion() {
     dispatch(fetchUsers());
   }, [fetchFlag]);
   return (
-    <div className=" p-2 suggestions">
+    <div className=" p-2 suggestions ">
       {!!suggestions.length ? (
         <>
           <h2 className="font-semibold text-lg">People You might know:</h2>

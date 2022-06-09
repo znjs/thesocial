@@ -7,3 +7,20 @@
     height: calc(100vh - 4.5rem);
     overflow: auto;
 }
+
+.suggestionsWrapper,
+.sideNav {
+    display: none;
+}
+
+@media only screen and (min-width: 875px) {
+    .suggestionsWrapper {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .sideNav {
+        display: block;
+    }
+}

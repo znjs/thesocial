@@ -31,7 +31,7 @@ function Home() {
     <div className="bg-[#11161b] text-gray-50 h-screen w-screen flex flex-col">
       <Navbar />
       <div className="w-screen max-w-[1600px] homeContainer flex mx-auto mt-2">
-        <div className="w-1/5 p-2">
+        <div className="w-1/5 p-2 min-w-[200px] sideNav">
           <div className="flex flex-col items-center background-clr py-3 rounded-lg">
             <div className="text-center my-2">
               <img
@@ -87,18 +87,6 @@ function Home() {
               }}>
               <i className="mx-4 fa-solid fa-compass"></i> <span> Explore</span>
             </NavLink>
-            {/* <NavLink
-              to="/liked"
-              className={({ isActive }) => {
-                let active = isActive ? "background-clr" : "";
-                return (
-                  " text-lg px-3 py-2 rounded-lg  hover:bg-[#454d50] btn border-0 w-full flex justify-start items-center cursor-pointer my-2 " +
-                  active
-                );
-              }}>
-              <i className="mx-4 fa-solid fa-thumbs-up"></i>
-              <span> Liked Posts</span>
-            </NavLink> */}
             <NavLink
               to="/bookmark"
               className={({ isActive }) => {
@@ -123,7 +111,7 @@ function Home() {
         <div className="main-container flex-grow p-2">
           <Outlet />
         </div>
-        <div className=" w-1/5 p-2">
+        <div className="w-1/5 p-2 suggestionsWrapper">
           <Suggestion />
         </div>
       </div>

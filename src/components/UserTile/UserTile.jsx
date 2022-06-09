@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { followUser } from "../../features";
+import "./userTile.css";
 
 function UserTile({ user }) {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function UserTile({ user }) {
         />
         <p>{user.username.split("@")[0]}</p>
         <button
-          className="background-clr hover:bg-[#11161b] py-2 px-3 rounded-full"
+          className="background-clr hover:bg-[#11161b] py-2 px-3 rounded-full hidden followBtn"
           onClick={(e) => {
             e.stopPropagation();
             dispatch(followUser({ encodedToken, userId: user._id }));
