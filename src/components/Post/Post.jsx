@@ -10,6 +10,7 @@ import {
   removePostFromBookmark,
   setEditPost,
 } from "../../features";
+import { Comment } from "../Comment/Comment";
 
 function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
   const dispatch = useDispatch();
@@ -38,6 +39,15 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
     }
   }
 
+  function showComments() {
+    return (
+      !!post.comments &&
+      post.comments.map((comment) => (
+        <Comment comment={comment} commentUserRoute={commentUserRoute} />
+      ))
+    );
+  }
+
   return (
     <div className="w-full background-clr p-3 my-3 rounded-lg max-w-[560px] mx-auto">
       <div className="flex items-center justify-between">
@@ -57,9 +67,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           {edit && (
             <p
               className="cursor-pointer hover:bg-[#11161b] rounded-lg"
-              onClick={() => {
-                dispatch(setEditPost(post));
-              }}>
+              onClick={() => dispatch(setEditPost(post))}>
               <label htmlFor="edit-post" className="btn modal-button border-0">
                 <i className="fa-solid fa-pen-to-square"></i>
               </label>
@@ -127,7 +135,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           }}></i>
       </div>
       <div>
-        {!!post.comments &&
+        {/* {!!post.comments &&
           post.comments.map((comment) => (
             <div key={comment._id} className=" rounded-lg my-2 flex items-center">
               <img
@@ -145,7 +153,12 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
                 <p>{comment.text}</p>
               </div>
             </div>
-          ))}
+          ))} */}
+        {/* {!!post.comments &&
+          post.comments.map((comment) => (
+            <Comment comment={comment} commentUserRoute={commentUserRoute} />
+          ))} */}
+        {showComments()}
       </div>
     </div>
   );
