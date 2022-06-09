@@ -14,7 +14,7 @@ function SignIn() {
 
   useEffect(() => {
     if (!!encodedToken) navigate("/");
-  }, [encodedToken]);
+  }, [encodedToken, navigate]);
 
   return (
     <div className="flex h-screen w-screen text-center bg-slate-800 ">

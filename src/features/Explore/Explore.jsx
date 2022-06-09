@@ -7,9 +7,11 @@ function Explore() {
   const posts = useSelector((state) => state.post.posts);
   const fetchFlag = useSelector((state) => state.post.fetchFlag);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [fetchFlag]);
+  }, [fetchFlag, dispatch]);
+
   return (
     <div className="w-full">
       <h2 className="text-2xl font-semibold">Explore:</h2>

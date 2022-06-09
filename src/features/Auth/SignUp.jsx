@@ -13,7 +13,7 @@ function SignUp() {
 
   useEffect(() => {
     if (!!encodedToken) navigate("/");
-  }, [encodedToken]);
+  }, [encodedToken, navigate]);
 
   return (
     <div className="flex h-screen w-screen bg-slate-800 text-center">

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logo } from "../../assets";
 import { logout } from "../../features";
@@ -7,7 +7,6 @@ import { logout } from "../../features";
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.userData);
   return (
     <>
       <nav className="navbar bg-base-100 px-4 py-2">

@@ -35,7 +35,7 @@ function SingleUserProfile() {
         console.error(err);
       }
     })();
-  }, [userId]);
+  }, [userId, encodedToken, navigate]);
 
   useEffect(() => {
     (async () => {

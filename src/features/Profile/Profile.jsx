@@ -20,13 +20,13 @@ function Profile() {
 
   useEffect(() => {
     dispatch(fetchUserPosts(user.username));
-  }, [fetchFlag]);
+  }, [fetchFlag, dispatch, user.username]);
 
   useEffect(() => {
     if (!!!encodedToken) {
       navigate("/login");
     }
-  }, []);
+  }, [navigate, encodedToken]);
 
   const uploadImageHandler = async (img) => {
     const data = new FormData();

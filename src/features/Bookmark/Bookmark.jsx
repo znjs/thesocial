@@ -5,13 +5,12 @@ import { fetchBookmarkPost } from "../Home/postSlice";
 
 function Bookmark() {
   const dispatch = useDispatch();
-  const encodedToken = useSelector((state) => state.auth.encodedToken);
   const fetchFlag = useSelector((state) => state.post.fetchFlag);
   const userBookmarks = useSelector((state) => state.post.userBookmarks);
 
   useEffect(() => {
     dispatch(fetchBookmarkPost());
-  }, [fetchFlag]);
+  }, [fetchFlag, dispatch]);
 
   return (
     <div className="w-full">
