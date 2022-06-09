@@ -15,6 +15,7 @@ import { Comment } from "../Comment/Comment";
 function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userImage = useSelector((state) => state.auth.userData.profileImage);
   const userBookmarks = useSelector((state) => state.post.userBookmarks);
   const encodedToken = useSelector((state) => state.auth.encodedToken);
   const username = useSelector((state) => state.auth.userData.username);
@@ -40,20 +41,25 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
   }
 
   function showComments() {
-    if (post.comments.length <= 2)
+    if (!post?.comments?.length) return <></>;
+    if (post?.comments?.length <= 2)
       return (
         !!post.comments &&
-        post.comments.map((comment) => (
-          <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
-        ))
+        [...post.comments]
+          .reverse()
+          .map((comment) => (
+            <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
+          ))
       );
     if (showAllComments) {
       return (
         <>
           {!!post.comments &&
-            post.comments.map((comment) => (
-              <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
-            ))}
+            [...post.comments]
+              .reverse()
+              .map((comment) => (
+                <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
+              ))}
           <p
             className="text-gray-400 hover:underline text-sm cursor-pointer mx-4 my-2"
             onClick={() => setShowAllComments((prev) => !prev)}>
@@ -70,7 +76,8 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
             show All comments
           </p>
           {!!post.comments &&
-            post.comments
+            [...post.comments]
+              .reverse()
               .slice(0, 2)
               .map((comment) => (
                 <Comment key={comment._id} comment={comment} commentUserRoute={commentUserRoute} />
@@ -152,8 +159,18 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           onKeyUp={(e) => {
-            console.log(e.key);
-            console.log(newComment);
+            if (e.key === "Enter") {
+              console.log(newComment);
+              dispatch(
+                commentOnPost({
+                  postId: post._id,
+                  newComment,
+                  encodedToken,
+                  profileImage: userImage,
+                }),
+              );
+              setNewComment("");
+            }
           }}
         />
         <i
@@ -164,7 +181,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
                 postId: post._id,
                 newComment,
                 encodedToken,
-                profileImage: post.profileImage,
+                profileImage: userImage,
               }),
             );
             setNewComment("");

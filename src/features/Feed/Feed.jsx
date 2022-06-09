@@ -5,10 +5,11 @@ import { Post } from "../../components";
 import { createNewPost, fetchPosts } from "../Home/postSlice";
 
 function Feed() {
+  const dispatch = useDispatch();
+  const [latestPosts, setLatestPosts] = useState(true);
   const user = useSelector((state) => state.auth.userData);
   const fetchFlag = useSelector((state) => state.post.fetchFlag);
   let posts = useSelector((state) => state.post.posts);
-  const dispatch = useDispatch();
   let followingUsers = useSelector((state) => state.auth.userData.following);
   if (!!followingUsers?.length) {
     followingUsers = followingUsers.map((user) => user.username);
@@ -19,7 +20,14 @@ function Feed() {
   const navigate = useNavigate();
 
   function displayPosts() {
-    return posts
+    let finalPosts = [...posts];
+    finalPosts = finalPosts.reverse();
+    if (!latestPosts) {
+      finalPosts = finalPosts.sort(
+        (postOne, postTwo) => postTwo.likes.likeCount - postOne.likes.likeCount,
+      );
+    }
+    return finalPosts
       ?.filter((post) => [...followingUsers, user?.username]?.includes(post?.username))
       .map((post) => <Post key={post._id} post={post} />);
   }
@@ -32,7 +40,7 @@ function Feed() {
 
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [fetchFlag, dispatch]);
+  }, [fetchFlag, dispatch, latestPosts]);
 
   return (
     <div className="">
@@ -83,7 +91,7 @@ function Feed() {
           </button>
         </div>
       </div>
-      <div className="flex justify-between items-center mx-4 my-2">
+      <div className="flex flex-col justify-between mx-4 my-2">
         <h2 className=" text-2xl font-semibold">Feed</h2>
         {/* COMMENTED FOR FUTURE PURPOSES */}
         {/* <div>
@@ -93,6 +101,21 @@ function Feed() {
             <i className="text-2xl fa-solid fa-border-all flex justify-center items-center text-gray-50 swap-on w-12 h-12"></i>
           </label>
         </div> */}
+        <div className="flex w-full justify-between mx-4 my-3 items-center text-lg">
+          <button
+            className={`grow rounded-lg mx-2 py-2 ${latestPosts ? "background-clr" : ""}`}
+            onClick={() => setLatestPosts(true)}>
+            <i className="fa-solid fa-calendar-days mx-2"></i>Latest
+          </button>
+          <span>
+            <i className="fa-solid fa-grip-lines-vertical"></i>
+          </span>
+          <button
+            className={`grow rounded-lg mx-2 py-2 ${latestPosts ? "" : "background-clr"}`}
+            onClick={() => setLatestPosts(false)}>
+            <i className="fa-solid fa-fire mx-2"></i>Trending
+          </button>
+        </div>
       </div>
       <div className="p-4">{!!posts.length && displayPosts()}</div>
     </div>
