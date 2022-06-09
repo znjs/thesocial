@@ -79,6 +79,17 @@ export const posts = [
           downvotedBy: [],
         },
       },
+      {
+        _id: uuid(),
+        username: "znjs@znjs.com",
+        profileImage:
+          "https://pbs.twimg.com/profile_images/1414657404843663368/rXyiNk3G_400x400.jpg",
+        text: "Random comment",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
     ],
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -132,7 +143,19 @@ export const posts = [
     username: "Laurel@gmail.com",
     profileImage:
       "https://images.unsplash.com/photo-1584270413639-d5ee397272cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    comments: [],
+    comments: [
+      {
+        _id: uuid(),
+        username: "znjs@znjs.com",
+        profileImage:
+          "https://pbs.twimg.com/profile_images/1414657404843663368/rXyiNk3G_400x400.jpg",
+        text: "JS Rocks",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+    ],
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },

@@ -21,7 +21,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
   const { content, profileImage, likes } = post;
   const users = useSelector((state) => state.auth.users);
   const [newComment, setNewComment] = useState("");
-
+  const [showAllComments, setShowAllComments] = useState(false);
   function clickRoute() {
     if (username === post.username) {
       navigate("/profile");
@@ -40,12 +40,42 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
   }
 
   function showComments() {
-    return (
-      !!post.comments &&
-      post.comments.map((comment) => (
-        <Comment comment={comment} commentUserRoute={commentUserRoute} />
-      ))
-    );
+    if (post.comments.length <= 2)
+      return (
+        !!post.comments &&
+        post.comments.map((comment) => (
+          <Comment comment={comment} commentUserRoute={commentUserRoute} />
+        ))
+      );
+    if (showAllComments) {
+      return (
+        <>
+          {!!post.comments &&
+            post.comments.map((comment) => (
+              <Comment comment={comment} commentUserRoute={commentUserRoute} />
+            ))}
+          <p
+            className="text-gray-400 hover:underline text-sm cursor-pointer mx-4 my-2"
+            onClick={() => setShowAllComments((prev) => !prev)}>
+            hide comments
+          </p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p
+            className="text-gray-400 hover:underline text-sm cursor-pointer mx-4 my-2"
+            onClick={() => setShowAllComments((prev) => !prev)}>
+            show All comments
+          </p>
+          {!!post.comments &&
+            post.comments
+              .slice(0, 2)
+              .map((comment) => <Comment comment={comment} commentUserRoute={commentUserRoute} />)}
+        </>
+      );
+    }
   }
 
   return (
@@ -134,32 +164,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
             setNewComment("");
           }}></i>
       </div>
-      <div>
-        {/* {!!post.comments &&
-          post.comments.map((comment) => (
-            <div key={comment._id} className=" rounded-lg my-2 flex items-center">
-              <img
-                src={comment.profileImage}
-                alt="profile"
-                className="rounded-full h-10 w-10 ml-4 mr-2 object-cover cursor-pointer"
-                onClick={() => commentUserRoute(comment.username)}
-              />
-              <div className="grow px-4 text-sm">
-                <p
-                  className="cursor-pointer font-semibold"
-                  onClick={() => commentUserRoute(comment.username)}>
-                  {comment.username.split("@")[0]}
-                </p>
-                <p>{comment.text}</p>
-              </div>
-            </div>
-          ))} */}
-        {/* {!!post.comments &&
-          post.comments.map((comment) => (
-            <Comment comment={comment} commentUserRoute={commentUserRoute} />
-          ))} */}
-        {showComments()}
-      </div>
+      <div>{showComments()}</div>
     </div>
   );
 }
