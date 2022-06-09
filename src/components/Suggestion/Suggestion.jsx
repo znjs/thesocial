@@ -18,12 +18,16 @@ function Suggestion() {
   }, [fetchFlag]);
   return (
     <div className=" p-2 suggestions">
-      <h2 className="font-semibold text-lg">People You might know:</h2>
-      <div className="my-4 ">
-        {suggestions.map((user) => (
-          <UserTile user={user} key={user._id} />
-        ))}
-      </div>
+      {!!suggestions.length ? (
+        <>
+          <h2 className="font-semibold text-lg">People You might know:</h2>
+          <div className="my-4 ">
+            {suggestions.slice(0, 4).map((user) => (
+              <UserTile user={user} key={user._id} />
+            ))}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
