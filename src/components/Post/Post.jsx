@@ -44,7 +44,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
       return (
         !!post.comments &&
         post.comments.map((comment) => (
-          <Comment comment={comment} commentUserRoute={commentUserRoute} />
+          <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
         ))
       );
     if (showAllComments) {
@@ -52,7 +52,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
         <>
           {!!post.comments &&
             post.comments.map((comment) => (
-              <Comment comment={comment} commentUserRoute={commentUserRoute} />
+              <Comment comment={comment} key={comment._id} commentUserRoute={commentUserRoute} />
             ))}
           <p
             className="text-gray-400 hover:underline text-sm cursor-pointer mx-4 my-2"
@@ -72,7 +72,9 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           {!!post.comments &&
             post.comments
               .slice(0, 2)
-              .map((comment) => <Comment comment={comment} commentUserRoute={commentUserRoute} />)}
+              .map((comment) => (
+                <Comment key={comment._id} comment={comment} commentUserRoute={commentUserRoute} />
+              ))}
         </>
       );
     }
@@ -149,6 +151,10 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           className="input input-bordered grow h-auto border-0 rounded-lg px-2"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
+          onKeyUp={(e) => {
+            console.log(e.key);
+            console.log(newComment);
+          }}
         />
         <i
           className="fa-solid fa-paper-plane cursor-pointer"
