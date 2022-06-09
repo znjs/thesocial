@@ -22,7 +22,7 @@ function UserTile({ user }) {
         />
         <p>{user.username.split("@")[0]}</p>
         <button
-          className="background-clr hover:bg-[#11161b] py-2 px-3 rounded-full hidden followBtn"
+          className="background-clr hover:bg-[#11161b] py-2 px-3 rounded-full followBtn"
           onClick={(e) => {
             e.stopPropagation();
             dispatch(followUser({ encodedToken, userId: user._id }));

@@ -1,3 +1,7 @@
+.followBtn {
+    display: none;
+}
+
 @media only screen and (min-width: 1268px) {
     .followBtn {
         display: block;
