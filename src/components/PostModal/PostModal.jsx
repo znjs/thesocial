@@ -6,9 +6,9 @@ function PostModal() {
   const user = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
   const encodedToken = useSelector((state) => state.auth.encodedToken);
-  const [postData, setPostData] = useState({ content: "", profileImage: user.profileImage });
+  const [postData, setPostData] = useState({ content: "", profileImage: user?.profileImage });
   useEffect(() => {
-    setPostData((prev) => ({ ...prev, profileImage: user.profileImage }));
+    setPostData((prev) => ({ ...prev, profileImage: user?.profileImage }));
   }, [user]);
   return (
     <>

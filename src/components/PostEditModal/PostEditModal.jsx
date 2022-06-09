@@ -9,14 +9,14 @@ function PostEditModal() {
   const editPost = useSelector((state) => state.post.editPost);
   const [postData, setPostData] = useState({
     content: "",
-    profileImage: user.profileImage,
+    profileImage: user?.profileImage,
   });
 
   useEffect(() => {
     setPostData((prev) => ({
       ...prev,
       content: editPost.content,
-      profileImage: user.profileImage,
+      profileImage: user?.profileImage,
     }));
     return () =>
       setPostData((prev) => ({
@@ -33,7 +33,7 @@ function PostEditModal() {
           <div className="bg-[#454d50] pt-12 p-4 rounded-lg text-gray-50 relative">
             <div className="flex">
               <img
-                src={user.profileImage}
+                src={user?.profileImage}
                 alt="Profile pic"
                 className="rounded-full h-12 w-12 mx-4 object-cover"
               />
