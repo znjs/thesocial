@@ -160,7 +160,6 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           onChange={(e) => setNewComment(e.target.value)}
           onKeyUp={(e) => {
             if (e.key === "Enter") {
-              console.log(newComment);
               dispatch(
                 commentOnPost({
                   postId: post._id,

@@ -68,6 +68,14 @@ function SignIn() {
               }`}>
               SIGN IN
             </button>
+            <button
+              onClick={() =>
+                dispatch(signIn({ username: "znjs@znjs.com", password: "znjs123", navigate }))
+              }
+              type="button"
+              className="text-center w-full py-4 bg-sky-500 hover:bg-sky-400 rounded-md cursor-pointer mt-3">
+              Test Login
+            </button>
             <p
               onClick={() => navigate("/signup")}
               className="text-sm font-sans font-medium text-gray-400 underline select-none cursor-pointer">
