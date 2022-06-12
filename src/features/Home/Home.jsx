@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Navbar, Suggestion } from "../../components";
+import { MobileNav, Navbar, Suggestion } from "../../components";
 import { fetchUsers } from "../Auth/authSlice";
 import "./home.css";
 import { fetchUserPosts } from "./postSlice";
@@ -115,6 +115,7 @@ function Home() {
           <Suggestion />
         </div>
       </div>
+      <MobileNav />
     </div>
   );
 }

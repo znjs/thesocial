@@ -4,3 +4,4 @@ export { Suggestion } from "./Suggestion/Suggestion";
 export { UserTile } from "./UserTile/UserTile";
 export { Navbar } from "./NavBar/Navbar";
 export { PostEditModal } from "./PostEditModal/PostEditModal";
+export { MobileNav } from "./MobileNav/MobileNav";

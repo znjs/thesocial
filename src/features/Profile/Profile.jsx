@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Navbar, Post } from "../../components";
+import { MobileNav, Navbar, Post } from "../../components";
 import { updateProfile } from "../Auth/authSlice";
 import { fetchUserPosts } from "../Home/postSlice";
 import "./profile.css";
@@ -185,6 +185,7 @@ function Profile() {
           </div>
         </div>
       </div>
+      <MobileNav />
     </div>
   );
 }

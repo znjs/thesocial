@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Navbar, Post } from "../../components";
+import { MobileNav, Navbar, Post } from "../../components";
 import { followUser, unFollowUser } from "../Auth/authSlice";
 
 function SingleUserProfile() {
@@ -99,6 +99,7 @@ function SingleUserProfile() {
             ))}
         </div>
       </div>
+      <MobileNav />
     </div>
   );
 }
