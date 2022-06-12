@@ -25,7 +25,9 @@ function MobileNav() {
         }}>
         <i className="text-2xl fa-solid fa-compass"></i>
       </NavLink>
-      <i className="text-2xl fa-solid fa-plus cursor-pointer"></i>
+      <label htmlFor="my-modal-4" className="modal-button ">
+        <i className="text-2xl fa-solid fa-plus cursor-pointer"></i>
+      </label>
       <NavLink
         to="/bookmark"
         className={({ isActive }) => {
