@@ -4,7 +4,7 @@ import "./mobileNav.css";
 
 function MobileNav() {
   return (
-    <div className="bg-gray-700 fixed bottom-0 left-0 right-0 flex justify-evenly max-h-[50px] items-center py-2 mobileNav">
+    <div className="bg-gray-700 fixed bottom-0 left-0 right-0 justify-evenly max-h-[50px] items-center py-2 mobileNav">
       <NavLink
         to="/"
         className={({ isActive }) => {
