@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../../components";
+import { triggerToast } from "../../utils/toastTrigger";
 import { createNewPost, fetchPosts } from "../Home/postSlice";
 
 function Feed() {
@@ -79,13 +80,17 @@ function Feed() {
           <button
             className="px-4 py-2 rounded-full bg-[#11161b] btn border-0 hover:bg-[#11161b70]"
             onClick={() => {
-              dispatch(
-                createNewPost({
-                  postData: { content: newPostData, profileImage: user.profileImage },
-                  encodedToken,
-                }),
-              );
-              setNewPostData("");
+              if (!!newPostData.length) {
+                dispatch(
+                  createNewPost({
+                    postData: { content: newPostData, profileImage: user.profileImage },
+                    encodedToken,
+                  }),
+                );
+                setNewPostData("");
+              } else {
+                triggerToast("warning", "Post Content empty");
+              }
             }}>
             Post
           </button>

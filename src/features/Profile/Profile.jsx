@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MobileNav, Navbar, Post } from "../../components";
+import { triggerToast } from "../../utils/toastTrigger";
 import { updateProfile } from "../Auth/authSlice";
 import { fetchUserPosts } from "../Home/postSlice";
 import "./profile.css";
@@ -180,6 +181,7 @@ function Profile() {
                 className="btn bg-[#11161b] border-0"
                 onClick={() => {
                   dispatch(updateProfile({ encodedToken, data: profileUpdate }));
+                  triggerToast("success", "Profile Updated");
                 }}>
                 Update
               </label>
