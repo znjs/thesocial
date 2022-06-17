@@ -13,7 +13,7 @@ function PostModal() {
   return (
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
+      <label htmlFor="my-modal-4" className="modal cursor-pointer bg-[#454d5050] backdrop-blur-sm">
         <label className="modal-box relative" htmlFor="">
           <div className="bg-[#454d50] pt-12 p-4 rounded-lg text-gray-50 relative">
             <div className="flex mb-3">

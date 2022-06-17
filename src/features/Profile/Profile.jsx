@@ -87,18 +87,20 @@ function Profile() {
         </div>
         <div className="w-full">
           {!!userPosts.length &&
-            userPosts.map((post) => (
-              <Post
-                key={post._id}
-                name={user.firstName + " " + user.lastName}
-                tag={user.username.split("@")[0]}
-                post={post}
-                edit={true}
-              />
-            ))}
+            [...userPosts]
+              .reverse()
+              .map((post) => (
+                <Post
+                  key={post._id}
+                  name={user.firstName + " " + user.lastName}
+                  tag={user.username.split("@")[0]}
+                  post={post}
+                  edit={true}
+                />
+              ))}
         </div>
         <input type="checkbox" id="my-modal" className="modal-toggle" />
-        <div className="modal ">
+        <div className="modal bg-[#454d5060] backdrop-blur-sm">
           <div className="modal-box bg-[#454d50]">
             <div>
               <div className="flex items-center">

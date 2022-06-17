@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { triggerToast } from "../../utils/toastTrigger";
 
 const initialState = {
   loading: false,
@@ -9,7 +10,7 @@ const initialState = {
   users: [],
 };
 
-export const signIn = createAsyncThunk("auth/signIn", async ({ username, password, navigate }) => {
+export const signIn = createAsyncThunk("auth/signIn", async ({ username, password }, thunkAPI) => {
   return await axios
     .post("/api/auth/login", {
       username,
@@ -21,12 +22,12 @@ export const signIn = createAsyncThunk("auth/signIn", async ({ username, passwor
       }
       return res.data;
     })
-    .catch((err) => err);
+    .catch((err) => thunkAPI.rejectWithValue(err));
 });
 
 export const signUp = createAsyncThunk(
   "auth/signUp",
-  async ({ username, password, firstName, lastName, navigate }) => {
+  async ({ username, password, firstName, lastName }, thunkAPI) => {
     return await axios
       .post("/api/auth/signup", {
         username,
@@ -40,7 +41,7 @@ export const signUp = createAsyncThunk(
         }
         return res.data;
       })
-      .catch((err) => err);
+      .catch((err) => thunkAPI.rejectWithValue(err));
   },
 );
 
@@ -98,6 +99,7 @@ const authSlice = createSlice({
       localStorage.removeItem("encodedToken");
       localStorage.removeItem("userData");
       action.payload.navigate("/login");
+      triggerToast("success", "User Logged out");
     },
   },
   extraReducers: {
@@ -109,10 +111,12 @@ const authSlice = createSlice({
       state.userData = action.payload.foundUser;
       localStorage.setItem("userData", JSON.stringify(action.payload.foundUser));
       state.loading = false;
+      triggerToast("success", "User logged in");
     },
     [signIn.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      triggerToast("error", action.payload.response?.data.errors[0]);
     },
     [signUp.pending]: (state) => {
       state.loading = true;
@@ -122,9 +126,12 @@ const authSlice = createSlice({
       state.userData = action.payload.createdUser;
       localStorage.setItem("userData", JSON.stringify(action.payload.createdUser));
       state.encodedToken = action.payload.encodedToken;
+      triggerToast("success", "User Created");
     },
     [signUp.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
+      triggerToast("error", action.payload.response?.data.errors[0]);
     },
     [fetchUsers.pending]: (state) => {
       state.loading = true;
@@ -134,6 +141,7 @@ const authSlice = createSlice({
       state.users = action.payload.users;
     },
     [fetchUsers.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     },
     [followUser.pending]: (state) => {
@@ -144,6 +152,7 @@ const authSlice = createSlice({
       state.userData = action.payload.user;
     },
     [followUser.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     },
     [unFollowUser.pending]: (state) => {
@@ -154,6 +163,7 @@ const authSlice = createSlice({
       state.userData = action.payload.user;
     },
     [unFollowUser.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     },
     [updateProfile.pending]: (state) => {
@@ -164,6 +174,7 @@ const authSlice = createSlice({
       state.userData = action.payload.user;
     },
     [updateProfile.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     },
   },

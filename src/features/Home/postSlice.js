@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { triggerToast } from "../../utils/toastTrigger";
 import { followUser } from "../Auth/authSlice";
 
 const initialState = {
@@ -187,6 +188,7 @@ const postSlice = createSlice({
       state.loading = false;
       state.fetchFlag = !state.fetchFlag;
       state.posts = action.payload.posts;
+      triggerToast("success", "Added new Post");
     },
     [createNewPost.rejected]: (state, action) => {
       state.loading = false;
@@ -198,6 +200,7 @@ const postSlice = createSlice({
     [editUserPost.fulfilled]: (state, action) => {
       state.loading = false;
       state.fetchFlag = !state.fetchFlag;
+      triggerToast("success", "Post Updated");
     },
     [editUserPost.rejected]: (state, action) => {
       state.loading = false;
@@ -258,6 +261,7 @@ const postSlice = createSlice({
       state.posts = action.payload.posts;
       state.loading = false;
       state.fetchFlag = !state.fetchFlag;
+      triggerToast("success", "Post deleted");
     },
     [deletePost.rejected]: (state, action) => {
       state.loading = false;
