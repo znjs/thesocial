@@ -8,6 +8,7 @@ import { followUser, unFollowUser } from "../Auth/authSlice";
 function SingleUserProfile() {
   const encodedToken = useSelector((state) => state.auth.encodedToken);
   const userData = useSelector((state) => state.auth.userData);
+  const fetchFlag = useSelector((state) => state.post.fetchFlag);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -46,7 +47,7 @@ function SingleUserProfile() {
         console.error(err);
       }
     })();
-  }, [profileData.username, userId]);
+  }, [profileData.username, userId, fetchFlag]);
 
   return (
     <div className="bg-[#11161b] text-gray-50 h-screen w-screen flex flex-col ">
