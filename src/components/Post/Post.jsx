@@ -159,7 +159,7 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           onKeyUp={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && !!newComment) {
               dispatch(
                 commentOnPost({
                   postId: post._id,
@@ -175,15 +175,17 @@ function Post({ post, name, tag = post.username.split("@")[0], edit = false }) {
         <i
           className="fa-solid fa-paper-plane cursor-pointer"
           onClick={() => {
-            dispatch(
-              commentOnPost({
-                postId: post._id,
-                newComment,
-                encodedToken,
-                profileImage: userImage,
-              }),
-            );
-            setNewComment("");
+            if (!!newComment) {
+              dispatch(
+                commentOnPost({
+                  postId: post._id,
+                  newComment,
+                  encodedToken,
+                  profileImage: userImage,
+                }),
+              );
+              setNewComment("");
+            }
           }}></i>
       </div>
       <div>{showComments()}</div>
