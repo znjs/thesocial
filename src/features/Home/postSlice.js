@@ -13,7 +13,7 @@ const initialState = {
   editPost: {},
 };
 
-export const fetchPosts = createAsyncThunk("posts/createAsyncThunk", async () => {
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return await axios
     .get("/api/posts")
     .then((res) => {
